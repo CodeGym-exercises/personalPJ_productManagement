@@ -16,11 +16,11 @@ public class Customer {
     @Column
     private String email;
 
-//    @ManyToMany
-//    @JoinTable(name = "customer_product",
-//            joinColumns = @JoinColumn(name = "customer_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    private List<Product> products;
+    @ManyToMany
+    @JoinTable(name = "customer_product",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Customer {
         this.email = email;
     }
 
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }
