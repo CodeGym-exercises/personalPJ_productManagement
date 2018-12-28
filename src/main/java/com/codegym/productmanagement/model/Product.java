@@ -2,7 +2,9 @@ package com.codegym.productmanagement.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -23,8 +25,11 @@ public class Product {
     @Column
     private String type;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Customer> customers;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "product_customer",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    private Set<Customer> customers = new HashSet<>();
 
     public Product() {
     }
@@ -68,11 +73,11 @@ public class Product {
         this.price = price;
     }
 
-    public List<Customer> getCustomers() {
+    public Set<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
 }

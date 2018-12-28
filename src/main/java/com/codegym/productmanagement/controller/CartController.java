@@ -1,5 +1,6 @@
 package com.codegym.productmanagement.controller;
 
+import com.codegym.productmanagement.service.CustomerService;
 import com.codegym.productmanagement.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,12 @@ public class CartController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    CustomerService customerService;
+
     @GetMapping
-    public String showCartPage(Model model){
+    public String showCartPage(Model model, HttpSession session){
+
         return "mycart";
     }
 

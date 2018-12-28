@@ -1,6 +1,8 @@
 package com.codegym.productmanagement.controller;
 
+import com.codegym.productmanagement.model.Customer;
 import com.codegym.productmanagement.model.Product;
+import com.codegym.productmanagement.service.CustomerService;
 import com.codegym.productmanagement.service.ProductService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 @Controller
 @RequestMapping(value = {"/","/products"})
 public class ProductController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    CustomerService customerService;
+
     @GetMapping
-    public String showHomePage(Model model, @PageableDefault(size = 4) Pageable pageable){
+    public String showHomePage(Model model, @PageableDefault(size = 4) Pageable pageable, HttpSession session){
         Page<Product> products = this.productService.findAll(pageable);
         model.addAttribute("products", products);
         return "home";
@@ -26,14 +37,17 @@ public class ProductController {
 
 //    ======================Create========================
     @GetMapping("/products/create")
-    public String showCreatePage(Model model){
+    public String showCreatePage(Model model, HttpSession session){
+        session.setAttribute("customers", this.customerService.findById(1));
         model.addAttribute("product",new Product());
         return "create";
     }
 
     @PostMapping("/products/create")
-    public String createNewProduct(Model model, @ModelAttribute Product product){
+    public String createNewProduct(Model model, @ModelAttribute Product product, HttpSession session){
         String message = "", alertms = "";
+
+        product.setCustomers((Set<Customer>) session.getAttribute("customers"));
         this.productService.save(product);
         message = "success";
         alertms = "alert alert-success";

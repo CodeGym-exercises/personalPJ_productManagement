@@ -7,40 +7,32 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Edit</title>
+    <title>Create customer</title>
 </head>
 <body>
+
 <div class="container" style="width: 40%; margin: 0 auto;">
-    <nav class="nav">
-        <a class="nav-link" href="#">Home</a>
-        <a class="nav-link" href="/products/create">New product</a>
-        <a class="nav-link" href="/customer/new">New customer</a>
-        <a class="nav-link" href="/customer">List customer</a>
-        <a class="nav-link" href="/mycart">My cart</a>
-    </nav>
-    <h1>Welcome to edit page</h1>
+    <h1>Welcome to create page</h1>
+    <a href="/">back</a><br>
     <div th:if="message.length!=0" th:text="${message}" th:class="${alertms}" role="alert">
     </div>
-    <form method="post" th:object="${product}">
+    <form action="/customer/new" method="post" th:object="${customer}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" aria-describedby="pemail" placeholder="email's name">
+            <small id="pemail" class="form-text text-muted">We'll don't share your email to anyone</small>
+        </div>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="pname" placeholder="product's name">
-            <small id="pname" class="form-text text-muted">Enter name of product</small>
+            <textarea th:field="*{name}" class="form-control" id="name"></textarea>
         </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea th:field="*{description}" class="form-control" id="description"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="text" th:field="*{price}" class="form-control" id="price">
-        </div>
-        <!--<div class="form-group">-->
-            <!--<label for="type">Type</label>-->
-            <!--<input type="text" th:field="*{type}" class="form-control" id="type">-->
-        <!--</div>-->
+
         <input type="hidden" th:field="*{id}">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <!--<div class="form-group">-->
+        <!--<label for="type">Type</label>-->
+        <!--<input type="text" th:field="*{type}" class="form-control" id="type">-->
+        <!--</div>-->
+        <button type="submit" class="btn btn-primary">New</button>
     </form>
 
 </div>

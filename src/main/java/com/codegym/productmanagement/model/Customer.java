@@ -1,7 +1,9 @@
 package com.codegym.productmanagement.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -16,11 +18,8 @@ public class Customer {
     @Column
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "customer_product",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+    @ManyToMany(mappedBy = "customers")
+    private Set<Product> products = new HashSet<>();
 
     public int getId() {
         return id;
@@ -46,11 +45,11 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 }

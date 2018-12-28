@@ -17,6 +17,7 @@
     Name: <span th:text="${product.name}"></span><br>
     Desc: <span th:text="${product.description}"></span><br>
     Price: <span th:text="${product.price}"></span><br>
+    Creator: <span th:text="${product.customers.get(0).name}"></span><br>
     <!--Type: <span th:text="${product.type}"></span><br>-->
     <a class="btn btn-info" th:href="@{/products/edit/{id} (id = ${product.id})}">Edit</a>
     <a class="btn btn-danger" th:href="@{/products/delete/{id} (id = ${product.id})}">Delete</a>

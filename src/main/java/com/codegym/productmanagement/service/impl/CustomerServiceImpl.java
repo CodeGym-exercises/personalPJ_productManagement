@@ -4,17 +4,21 @@ import com.codegym.productmanagement.model.Customer;
 import com.codegym.productmanagement.repository.CustomerRepository;
 import com.codegym.productmanagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
     @Override
-    public Iterator<Customer> findAll() {
-        return customerRepository.findAll().iterator();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override
