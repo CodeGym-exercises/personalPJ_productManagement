@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<Customer> findAll(Pageable pageable) {
         return customerRepository.findAll(pageable);
+    }
+
+    @Override
+    public ArrayList<Customer> findAll() {
+        return (ArrayList<Customer>) customerRepository.findAll();
     }
 
     @Override
@@ -34,5 +40,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void save(Customer customer) {
         this.customerRepository.save(customer);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.customerRepository.existsById(id);
     }
 }

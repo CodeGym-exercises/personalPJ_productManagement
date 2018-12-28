@@ -52,4 +52,8 @@ public class Customer {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+    public void addNewProduct(Product product){
+        this.products.add(product);
+    }
 }

@@ -19,9 +19,10 @@
     <nav class="nav" style="margin-bottom: 20px">
         <a class="nav-link active" href="#">Home</a>
         <a class="nav-link" href="/products/create">New product</a>
-        <a class="nav-link" href="/customer/new">New customer</a>
+        <a class="nav-link" href="/customer/new" th:if="${session.current_customer}==null">Sign up</a>
+        <a class="nav-link" href="/customer/login" th:if="${session.current_customer}==null">Sign in</a>
         <a class="nav-link" href="/customer">List customer</a>
-        <a class="nav-link" href="/mycart">My cart</a>
+        <a class="nav-link" href="/mycart" th:if="${session.current_customer}!=null">My cart</a>
     </nav>
 
     <div th:if="${session.current_customer}">

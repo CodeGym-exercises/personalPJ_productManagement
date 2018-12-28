@@ -16,8 +16,8 @@
 <body>
 <div class="container" style="width: 70%; margin: 0 auto;">
     <a class="btn btn-outline-primary" href="/">Back to home</a>
-    <h1 style="text-align: center" th:if="${session.total}==0">Not have any product in cart!!</h1>
-    <table class="table table-striped table-hover" style="text-align: center" th:if="${session.total}!=0">
+    <!--<h1 style="text-align: center" th:if="${session.total}">Not have any product in cart!!</h1>-->
+    <table class="table table-striped table-hover" style="text-align: center">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -30,12 +30,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${session.items}" style="cursor: pointer">
+        <tr th:each="item : ${session.cart}" style="cursor: pointer">
             <th scope="row"><a th:href="@{/products/details/{id} (id=${item.product.id})}" th:text="${item.product.id}"></a></th>
             <td th:text="${item.product.name}"></td>
             <td th:text="${item.product.description}"></td>
             <td th:text="${item.product.price}"></td>
-            <!--<td th:text="${product.type}"></td>-->
             <td th:text="${item.quantity}"></td>
             <td>
                 <a class="btn btn-danger" th:href="@{/mycart/delete/{id} (id=${item.product.id})}">
@@ -59,10 +58,10 @@
             <!--</li>-->
         <!--</ul>-->
     <!--</nav>-->
-    <span th:if="${session.total}!=0">
-        total: <h3 th:text="${session.total}"></h3>
-    </span>
-    <button class="btn btn-primary" th:classappend="${session.total==0} ? disabled">Buy</button>
+    <!--<span th:if="${session.total}!=0">-->
+        <!--total: <h3 th:text="${session.total}"></h3>-->
+    <!--</span>-->
+    <button class="btn btn-primary">Buy</button>
 </div>
 
 
