@@ -17,12 +17,13 @@
 
 <div class="container" style="width: 70%; margin: 0 auto;">
     <nav class="nav" style="margin-bottom: 20px">
-        <a class="nav-link active" href="#">Home</a>
-        <a class="nav-link" href="/products/create">New product</a>
-        <a class="nav-link" href="/customer/new" th:if="${session.current_customer}==null">Sign up</a>
-        <a class="nav-link" href="/customer/login" th:if="${session.current_customer}==null">Sign in</a>
-        <a class="nav-link" href="/customer">List customer</a>
-        <a class="nav-link" href="/mycart" th:if="${session.current_customer}!=null">My cart</a>
+        <a class="nav-link active" href="/"><i class="fas fa-house-damage"></i> Home</a>
+        <a class="nav-link" href="/products/create"><i class="fas fa-plus-square"></i> New product</a>
+        <a class="nav-link" href="/customer"><i class="fas fa-list-ul"></i> List customer</a>
+        <a class="nav-link" href="/mycart" th:if="${session.current_customer}!=null"><i class="fas fa-shopping-cart"></i> My cart</a>
+        <a class="nav-link" href="/customer/new" th:if="${session.current_customer}==null"><i class="fas fa-user-plus"></i> Sign up</a>
+        <a class="nav-link" href="/customer/login" th:if="${session.current_customer}==null"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+        <a class="nav-link" href="/customer/logout" th:if="${session.current_customer}!=null"><i class="fas fa-sign-out-alt"></i> Sign out</a>
     </nav>
 
     <div th:if="${session.current_customer}">
@@ -50,7 +51,7 @@
             <!--<td th:text="${product.type}"></td>-->
             <td th:if="${session.current_customer}"><a class="btn btn-info" th:href="@{/products/edit/{id} (id=${product.id})}">edit</a></td>
             <td th:if="${session.current_customer}"><a class="btn btn-danger" th:href="@{/products/delete/{id} (id=${product.id})}">delete</a></td>
-            <td th:if="${session.current_customer}"><a class="btn btn-dark" th:href="@{/mycart/add/{id} (id=${product.id})}"><i class="fas fa-shopping-cart"></i></a></td>
+            <td th:if="${session.current_customer}"><a class="btn btn-dark" th:href="@{/mycart/add/{id} (id=${product.id})}"><i class="fas fa-cart-plus"></i></a></td>
         </tr>
         </tbody>
     </table>

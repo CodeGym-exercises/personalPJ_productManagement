@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -74,6 +71,12 @@ public class CustomerController {
         model.addAttribute("message",message);
         model.addAttribute("alertms",alertms);
         return "login";
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/customer/login";
     }
 
     private int isCustomer(String email, String name){
