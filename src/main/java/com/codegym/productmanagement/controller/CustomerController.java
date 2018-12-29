@@ -66,6 +66,7 @@ public class CustomerController {
             message = "success";
             alertms = "alert alert-success";
             session.setAttribute("current_customer",this.customerService.findById(isCustomer(email, name)));
+            return "redirect:/products";
         }else{
             message = "Fails, not found this customer in system";
             alertms = "alert alert-danger";

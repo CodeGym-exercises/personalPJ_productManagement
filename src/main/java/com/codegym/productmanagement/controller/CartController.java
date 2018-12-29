@@ -8,9 +8,7 @@ import com.codegym.productmanagement.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -28,11 +26,13 @@ public class CartController {
     CustomerService customerService;
 
     private static List<Item> cart = new ArrayList<Item>();
+
     @GetMapping
     public String showCartPage(Model model, HttpSession session){
         Customer customer = (Customer) session.getAttribute("current_customer");
         session.setAttribute("cart",cart);
         session.setAttribute("current_customer",customer);
+        session.setAttribute("total", getAmount());
         return "mycart";
     }
 
@@ -51,13 +51,30 @@ public class CartController {
         }
         session.setAttribute("cart",cart);
         session.setAttribute("current_customer",customer);
+        session.setAttribute("total", getAmount());
         return "mycart";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteItem(Model model, @PathVariable int id, HttpSession session){
-
+        cart.remove(findByProductId(id));
+        session.setAttribute("total", getAmount());
         return "mycart";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editItem(Model model, @PathVariable int id, @RequestParam("quantity") String quantity, HttpSession session){
+        cart.get(findByProductId(id)).setQuantity(Integer.parseInt(quantity));
+        session.setAttribute("total", getAmount());
+        return "mycart";
+    }
+
+    private int getAmount(){
+        int amount = 0;
+        for(int i = 0; i < cart.size(); i++){
+            amount += Integer.parseInt(cart.get(i).getProduct().getPrice()) * cart.get(i).getQuantity() ;
+        }
+        return amount;
     }
 
     private boolean isExited(int id){

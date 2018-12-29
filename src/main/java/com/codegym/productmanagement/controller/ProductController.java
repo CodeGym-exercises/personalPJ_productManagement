@@ -46,8 +46,6 @@ public class ProductController {
     @PostMapping("/products/create")
     public String createNewProduct(Model model, @ModelAttribute Product product, HttpSession session){
         String message = "", alertms = "";
-
-        product.setCustomers((Set<Customer>) session.getAttribute("customers"));
         this.productService.save(product);
         message = "success";
         alertms = "alert alert-success";
