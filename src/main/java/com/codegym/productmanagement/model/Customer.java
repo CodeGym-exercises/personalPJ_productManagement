@@ -18,7 +18,10 @@ public class Customer {
     @Column
     private String email;
 
-    @ManyToMany(mappedBy = "customers")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "customer_product",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
 
     public int getId() {
@@ -51,9 +54,5 @@ public class Customer {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
-    }
-
-    public void addNewProduct(Product product){
-        this.products.add(product);
     }
 }

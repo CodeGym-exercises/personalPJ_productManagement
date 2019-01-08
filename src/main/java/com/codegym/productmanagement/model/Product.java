@@ -22,13 +22,7 @@ public class Product {
     @Column
     private String price;
 
-    @Column
-    private String type;
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "product_customer",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    @ManyToMany(mappedBy = "products")
     private Set<Customer> customers = new HashSet<>();
 
     public Product() {
@@ -48,14 +42,6 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public String getDescription() {
         return description;

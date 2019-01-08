@@ -5,6 +5,7 @@ import com.codegym.productmanagement.model.Item;
 import com.codegym.productmanagement.model.Product;
 import com.codegym.productmanagement.service.CustomerService;
 import com.codegym.productmanagement.service.ProductService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,6 +69,21 @@ public class CartController {
         session.setAttribute("total", getAmount());
         return "mycart";
     }
+
+    @GetMapping("/buy")
+    public String getAllProducts(Model model,HttpSession session){
+        Customer customer = (Customer) session.getAttribute("current_customer");
+        Set<Product> products = new HashSet<>();
+        for(int i = 0; i < cart.size(); i++){
+            products.add(cart.get(i).getProduct());
+        }
+        customer.setProducts(products);
+        this.customerService.save(customer);
+
+        model.addAttribute("message","Success!");
+        return "mycart";
+    }
+
 
     private int getAmount(){
         int amount = 0;
