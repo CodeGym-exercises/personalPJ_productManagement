@@ -70,7 +70,7 @@ public class ProductController {
     }
 
     @PostMapping("/products/edit/{id}")
-    public String editProduct(Model model,@ModelAttribute("product") Product product){
+    public String editProduct(@PathVariable int id,Model model,@ModelAttribute("product") Product product){
         this.productService.save(product);
         String message = "", alertms = "";
         message = "success";

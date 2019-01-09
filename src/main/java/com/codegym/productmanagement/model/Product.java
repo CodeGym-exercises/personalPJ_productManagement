@@ -25,14 +25,12 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private Set<Customer> customers = new HashSet<>();
 
-    public Product() {
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
